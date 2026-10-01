@@ -1,22 +1,20 @@
-![HiddenWave](docs/banner.svg)
-
 # HiddenWave
 
 Packages the research code and scene illustrations from [computational-imaging/nlos-fk](https://github.com/computational-imaging/nlos-fk/tree/d34d49fed5a86f4ebddf85d461cff6923de5367d), associated with *Wave-Based Non-Line-of-Sight Imaging using Fast f-k Migration* by **David B. Lindell, Gordon Wetzstein and Matthew O'Toole** (SIGGRAPH 2019).
 
 Confocal non-line-of-sight volume reconstruction with backprojection, light-cone inversion, frequency-wavenumber migration, and phasor fields.
 
-HiddenWave adds a forwarding entry point, documentation, artwork and smoke checks. The 32 retained numerical and scene files match the pinned upstream version; [source and additions](NOTICE.md) records their provenance.
+This checkout adds the `hidden_wave` alias, setup documentation and smoke checks. The 32 retained numerical and scene files match the pinned upstream version; [source and additions](NOTICE.md) records their provenance.
 
 ## Quick start
 
-Open MATLAB in this repository, then use the branded entry point:
+With MATLAB open in the repository and calibrated measurements loaded, run:
 
 ```matlab
 volume = hidden_wave(meas, [], wall_size, 2, 512, 32e-12);
 ```
 
-The entry point preserves the existing function's arguments, errors, and numerical output. Existing script and function names remain available for compatibility. No sensor starts when you open this repository.
+`hidden_wave` forwards arguments and outputs to the original `cnlos_reconstruction` function. Existing script and function names remain available.
 
 ## Inputs and workflows
 
@@ -24,7 +22,7 @@ Measurements are spatial × spatial × time. Supply calibrated transient measure
 
 ## Verification
 
-Run `run('tests/smoke_test.m')` from the repository root. See [verification details](docs/VERIFICATION.md) for the tested scope and unavailable checks. Computational source and bundled scientific assets are retained byte-for-byte; the added facade and documentation provide the new presentation.
+Run `run('tests/smoke_test.m')` from the repository root. See [verification details](docs/VERIFICATION.md) for the tested scope and unavailable checks. The original numerical source and scene illustrations are retained byte-for-byte.
 
 ## License
 
