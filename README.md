@@ -2,9 +2,11 @@
 
 # HiddenWave
 
+Packages the research code and scene illustrations from [computational-imaging/nlos-fk](https://github.com/computational-imaging/nlos-fk/tree/d34d49fed5a86f4ebddf85d461cff6923de5367d), associated with *Wave-Based Non-Line-of-Sight Imaging using Fast f-k Migration* by **David B. Lindell, Gordon Wetzstein and Matthew O'Toole** (SIGGRAPH 2019).
+
 Confocal non-line-of-sight volume reconstruction with backprojection, light-cone inversion, frequency-wavenumber migration, and phasor fields.
 
-> **Development history:** Developed locally using Git before publication. These projects were published to GitHub together, so similar upload dates do not indicate when development began.
+HiddenWave adds a forwarding entry point, documentation, artwork and smoke checks. The 32 retained numerical and scene files match the pinned upstream version; [source and additions](NOTICE.md) records their provenance.
 
 ## Quick start
 
@@ -26,4 +28,8 @@ Run `run('tests/smoke_test.m')` from the repository root. See [verification deta
 
 ## License
 
-The numerical source retains its institutional academic/noncommercial terms in LICENSE. MIT in LICENSE-branding covers the new documentation, artwork, wrapper, and checks only.
+The numerical source retains its institutional academic/noncommercial terms in [LICENSE](LICENSE). MIT in [LICENSE-branding](LICENSE-branding) covers the new documentation, artwork, wrapper and checks only.
+
+## Research citation
+
+David B. Lindell, Gordon Wetzstein and Matthew O'Toole. 2019. *Wave-based non-line-of-sight imaging using fast f-k migration*. ACM Transactions on Graphics 38(4), Article 116. [Project and citation](https://www.computationalimaging.org/publications/nlos-fk/).
