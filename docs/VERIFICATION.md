@@ -23,3 +23,7 @@ The test uses only local synthetic inputs or bundled data. It does not acquire o
 Phasor-field reconstruction needs Signal Processing Toolbox. Real captured transient datasets, large scenes, nonplanar, nonconfocal and iterative pipelines were not run.
 
 The facade restores the MATLAB search path after a call. Legacy figure output and computational behavior are preserved. This release has new branding, documentation, artwork, and an entry-point facade; it does not claim a new underlying research algorithm.
+
+## Continuous checks
+
+The synthetic reconstruction workflow runs the existing `tests/smoke_test.m` in base MATLAB R2026a on a standard Ubuntu runner, with a three-minute calculation timeout. It uses public-repository batch licensing and requires no license secret or additional toolbox. The same three small synthetic modes run on pushes and pull requests. A passing workflow does not establish captured-data accuracy or cover the unavailable pipelines listed above.
