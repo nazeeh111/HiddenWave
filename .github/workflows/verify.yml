@@ -1,0 +1,30 @@
+name: Synthetic reconstruction checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reconstruction:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Set up base MATLAB
+        # Standard public-repository batch licensing; no paid token or toolbox.
+        uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d
+        with:
+          release: R2026a
+      - name: Run the three existing synthetic reconstruction modes
+        timeout-minutes: 3
+        uses: matlab-actions/run-command@bfa857648f4895aa98a446fe41c85e0788421ed5
+        with:
+          startup-options: -singleCompThread
+          generate-summary: false
+          command: run('tests/smoke_test.m')
