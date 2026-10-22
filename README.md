@@ -4,6 +4,10 @@ Confocal non-line-of-sight volume reconstruction with backprojection, light-cone
 
 HiddenWave adds the `hidden_wave` entry point, setup documentation and smoke checks.
 
+![Volumetric scene illustration retained from the original nlos-fk project](scenes/teaser_3.png)
+
+*Original [nlos-fk](https://github.com/computational-imaging/nlos-fk/tree/d34d49fed5a86f4ebddf85d461cff6923de5367d) scene illustration, retained with its source terms. It is not a new reconstruction produced by HiddenWave's smoke checks.*
+
 ## Quick start
 
 With MATLAB open in the repository and calibrated measurements loaded, run:
