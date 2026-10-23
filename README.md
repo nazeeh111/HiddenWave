@@ -4,7 +4,7 @@
 
 A scanned wall acts as an indirect view of a scene outside the camera's line of sight. HiddenWave retains the MATLAB reconstruction methods from [nlos-fk](https://github.com/computational-imaging/nlos-fk/tree/d34d49fed5a86f4ebddf85d461cff6923de5367d), with a forwarding entry point and small offline checks. The research methods are the original authors' work; this edition adds access and verification guidance.
 
-![Retained nlos-fk volumetric scene illustration](scenes/teaser_3.png)
+<img src="scenes/teaser_3.png" width="400" alt="Retained nlos-fk volumetric scene illustration">
 
 *Original nlos-fk scene illustration, retained under its [source terms](LICENSE). This is upstream research imagery, not output from the synthetic check below.*
 
