@@ -59,7 +59,7 @@ The returned volume is spatial × spatial × depth. The retained function also o
 | `0` | Filtered backprojection | Base MATLAB; covered by the small offline check. |
 | `1` | Light-cone transform inversion | Base MATLAB; covered by the small offline check. |
 | `2` | Frequency-wavenumber (f-k) migration | Base MATLAB; covered by the small offline check. |
-| `3` | Phasor fields | Also needs Signal Processing Toolbox (`gausswin`); outside that check. |
+| `3` | Phasor fields | First add `util/` to the MATLAB path (`addpath('util')`); also needs Signal Processing Toolbox (`gausswin`). Outside that check. |
 
 [`demo.m`](demo.m) maps the larger captured-data, interactive, nonplanar and phase-retrieval workflows. It expects external capture folders such as `statue/` and `interactive/`; they are not bundled. If it reports a missing `.mat` file, start with the offline check or obtain the matching research capture before running that section. Existing script and function names remain available.
 
