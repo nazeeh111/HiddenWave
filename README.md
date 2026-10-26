@@ -2,13 +2,13 @@
 
 **Hidden-scene volumes from time-resolved light measurements.**
 
-A scanned wall acts as an indirect view of a scene outside the camera's line of sight. HiddenWave retains the MATLAB reconstruction methods from [nlos-fk](https://github.com/computational-imaging/nlos-fk/tree/d34d49fed5a86f4ebddf85d461cff6923de5367d), with a forwarding entry point and small offline checks. The research methods are the original authors' work; this edition adds access and verification guidance.
+A scanned wall acts as an indirect view of a scene outside the camera's line of sight. HiddenWave reconstructs the hidden volume in MATLAB using backprojection, light-cone inversion or f-k migration.
 
-<img src="scenes/teaser_3.png" width="400" alt="Retained nlos-fk volumetric scene illustration">
+<img src="scenes/teaser_3.png" width="400" alt="Hidden-scene volumetric illustration">
 
-*Original nlos-fk scene illustration, retained under its [source terms](LICENSE). This is upstream research imagery, not output from the synthetic check below.*
+*Retained research illustration under its [source terms](LICENSE), separate from the synthetic check below.*
 
-[Try the offline check](#start-without-capture-data) · [Use calibrated measurements](#reconstruct-your-measurements) · [Inspect the methods](cnlos_reconstruction.m) · [Source and additions](NOTICE.md)
+[Try the offline check](#start-without-capture-data) · [Use calibrated measurements](#reconstruct-your-measurements) · [Inspect the methods](cnlos_reconstruction.m)
 
 <a id="quick-start"></a>
 <a id="verification"></a>
@@ -66,8 +66,6 @@ The returned volume is spatial × spatial × depth. The retained function also o
 <a id="license"></a>
 <a id="research-citation"></a>
 
-## Research and license
-
-David B. Lindell, Gordon Wetzstein and Matthew O'Toole. 2019. *Wave-based non-line-of-sight imaging using fast f-k migration*. ACM Transactions on Graphics 38(4), Article 116. [Project and citation](https://www.computationalimaging.org/publications/nlos-fk/).
+## License
 
 The original numerical source and scene illustrations are retained byte-for-byte; [NOTICE.md](NOTICE.md) records provenance. The numerical source retains its institutional academic/noncommercial terms in [LICENSE](LICENSE). MIT in [LICENSE-branding](LICENSE-branding) covers the new documentation, artwork, wrapper and checks only.
