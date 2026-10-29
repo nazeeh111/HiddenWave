@@ -83,3 +83,10 @@ left measurement and reconstruction arrays exactly unchanged. The current plots
 were visually inspected. The README embeds an unedited PNG downloaded from that
 successful hosted production run, separately from the retained research picture.
 No performance speedup is claimed from varying cold graphics/JIT timing.
+
+
+The hosted renderer exposed a horizontal-legend collision absent from the Mac
+preview. The original export was retained, plot labels moved into a self-contained
+two-line title, and exact plot revisionaf285c8 passed hostedrun40972892515. Both
+fresh Linux exports were inspected; the README PNG comes from that corrected run.
+These render-only changes do not affect saved measurement or reconstruction arrays.

@@ -36,7 +36,7 @@ not the output of this example.
 ![Newly computed f-k maximum projection for an ideal confocal point](docs/ideal-confocal-point.png)
 
 *Actual output of `confocal_point` at the verified reconstruction revision
-`121ddb9`, [MATLAB CI run40972081929](https://github.com/nazeeh111/HiddenWave/actions/runs/40972081929).
+`af285c8`, [MATLAB CI run40972892515](https://github.com/nazeeh111/HiddenWave/actions/runs/40972892515).
 Red marks the original generated target; blue marks the actual reconstructed peak.
 For target `[.08,-.05,.30]`m the peak was `[.09333,-.04,.30478]`m; the changed
 `[-.08,.05,.40]`m target peaked at `[-.09333,.06667,.40154]`m. These are ideal-input
