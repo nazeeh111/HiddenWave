@@ -21,10 +21,19 @@ jobs:
         uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d
         with:
           release: R2026a
-      - name: Run the three existing synthetic reconstruction modes
+      - name: Preserve pinned original for exact numerical comparison
+        run: |
+          git fetch --depth=1 origin 61581f34f5a9de11ba84f87ba0651bf2fc70380d
+          mkdir -p /tmp/hiddenwave-baseline
+          git show 61581f34f5a9de11ba84f87ba0651bf2fc70380d:cnlos_reconstruction.m | sed 's/function result = cnlos_reconstruction(/function result = cnlos_reconstruction_baseline(/' > /tmp/hiddenwave-baseline/cnlos_reconstruction_baseline.m
+      - name: Run production numerical, analytic point and admission checks
         timeout-minutes: 3
         uses: matlab-actions/run-command@bfa857648f4895aa98a446fe41c85e0788421ed5
         with:
           startup-options: -singleCompThread
           generate-summary: false
-          command: run('tests/smoke_test.m')
+          command: addpath('/tmp/hiddenwave-baseline'); run('tests/smoke_test.m'); run('tests/numerical_test.m'); addpath('examples'); confocal_point('/tmp/hiddenwave-point-a',[.08,-.05,.3]); confocal_point('/tmp/hiddenwave-point-b',[-.08,.05,.4]);
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2, Node24
+        with:
+          name: original-confocal-point-results
+          path: /tmp/hiddenwave-point-*

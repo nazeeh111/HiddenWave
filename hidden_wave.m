@@ -5,5 +5,6 @@ root = fileparts(mfilename('fullpath'));
 previousPath = path;
 cleanup = onCleanup(@() path(previousPath)); %#ok<NASGU>
 addpath(root);
+addpath(fullfile(root, 'util'));
 [varargout{1:nargout}] = cnlos_reconstruction(varargin{:});
 end
