@@ -27,4 +27,4 @@ jobs:
         with:
           startup-options: -singleCompThread
           generate-summary: false
-          command: run('tests/smoke_test.m')
+          command: run('tests/smoke_test.m'); run('tests/baseline_edge_probe.m')
