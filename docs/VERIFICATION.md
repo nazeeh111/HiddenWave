@@ -71,3 +71,15 @@ Phasor mode still requires `gausswin`/Signal Processing Toolbox; this patch does
 replace an unverified window kernel or claim that mode passed. Captured MAT data,
 nonconfocal/nonplanar and iterative procedures remain separate unvalidated workflows.
 No microphone, optical hardware or external dataset is accessed by these checks.
+
+
+Exact reconstruction commit121ddb9 passed hostedMATLAB R2026a run40972081929,
+including the pinned-original comparison (`executed=1`) and both newly computed
+point artifacts. LocalMATLAB R2026a Update5 also passed the numerical script;
+its earlier service5201 failure had cleared at this follow-up. Actual saved MAT
+arrays were independently loaded with SciPy: volume maxima match JSON axes/peak
+coordinates, and regenerating the same two inputs for the plot-layout correction
+left measurement and reconstruction arrays exactly unchanged. The current plots
+were visually inspected. The README embeds an unedited PNG downloaded from that
+successful hosted production run, separately from the retained research picture.
+No performance speedup is claimed from varying cold graphics/JIT timing.
