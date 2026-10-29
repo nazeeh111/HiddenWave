@@ -43,10 +43,11 @@ fprintf(fid,'%s\n',jsonencode(report));
 fig=figure('Visible','off','Position',[100,100,960,720]);figure_cleanup=onCleanup(@() close(fig)); %#ok<NASGU>
 imagesc(info.x_m,info.y_m,max(volume,[],3));axis image;set(gca,'YDir','normal');
 xlabel('x (m)');ylabel('y (m)');colormap('gray');colorbar;
-title(sprintf('Ideal confocal point, z=%.2f m; f-k maximum projection',target_m(3)));
+title({sprintf('Ideal confocal point, z=%.2f m; f-k projection',target_m(3)), ...
+    'Red cross = generated target; blue circle = reconstructed peak'});
 hold on;plot(target_m(1),target_m(2),'rx','MarkerSize',12,'LineWidth',2);
 plot(peak_m(1),peak_m(2),'bo','MarkerSize',10,'LineWidth',1.5);
-legend('known generated target','reconstructed peak','Location','southoutside','Orientation','horizontal');
+drawnow;
 exportgraphics(fig,fullfile(output_dir,'projection.png'),'Resolution',150);
 disp(report);
 end
