@@ -1,5 +1,11 @@
 # Verification
 
+## Historical preservation record
+
+The observations in this section predate the 2026-10-29 numerical rehabilitation.
+The original SOURCE-MANIFEST.json remains a historical baseline; current intentional
+source amendments are identified in SOURCE-AMENDMENTS.json.
+
 Tested locally with MATLAB R2026a Update 5 (26.1.0.3346908), using base MATLAB. Only MATLAB, Simulink and System Composer were installed; additional research toolboxes were not assumed available.
 
 ## Passed
@@ -27,3 +33,41 @@ The facade restores the MATLAB search path after a call. Legacy figure output an
 ## Continuous checks
 
 The synthetic reconstruction workflow runs the existing `tests/smoke_test.m` in base MATLAB R2026a on a standard Ubuntu runner, with a three-minute calculation timeout. It uses public-repository batch licensing and requires no license secret or additional toolbox. The same three small synthetic modes run on pushes and pull requests. A passing workflow does not establish captured-data accuracy or cover the unavailable pipelines listed above.
+
+
+## Confocal point and batch execution (2026-10-29)
+
+The production numerical formulas are unchanged. The function now admits supported
+inputs before allocation, infers a crop no larger than the recording when omitted,
+returns nominal coordinate metadata and supports an optional seventh `show_plot`
+flag. Default plotting remains available, and all working original six-argument
+calls retain their formulas and boundary mask. The facade adds `util/` temporarily
+and restores the caller path on success or failure.
+
+Untouched source at commit61581f3 was executed first in hosted MATLAB R2026a:
+8-bin f-k failed at negative boundary indices; a default call on32bins tried to
+index512;24-bin LCT failed reshaping its power-of-two resampling matrix. ZeroFBP
+already returned finite all-zero output; that suspected defect was rejected and
+its normalization was not rewritten. These trials remain in task evidence and
+baseline probe commit44a1126.
+
+`tests/numerical_test.m` compares working modes0/1/2 exactly with pinned original
+source, exercises zero signals and timestamp alignment, requires headless calls
+to leave no figures/path changes, checks actionable admission/output-preservation,
+and reconstructs two original analytic confocal point scenes. The expected signed
+coordinates follow Euclidean light travel time independently of the FFT/Stolt
+implementation. Fixed tolerances are one lateral scan spacing and two sampled
+nominal depth bins, accounting for the one-bin Gaussian input pulse, interpolation
+and retained inclusive depth-axis convention. No expected reconstructed array is
+stored or edited. The synthetic example reports absolute coordinate errors and
+separates nominal coordinates from calibrated real-world accuracy.
+
+The original FBP mode showed a larger depth offset than LCT/f-k on the first ideal
+point probe (about2.4cm for a30cm target). This is retained evidence, not silently
+repaired by changing the algorithm. The new independent coordinate gate and example
+are specifically for f-k. Other scene conditions and measured quality are unresolved.
+
+Phasor mode still requires `gausswin`/Signal Processing Toolbox; this patch does not
+replace an unverified window kernel or claim that mode passed. Captured MAT data,
+nonconfocal/nonplanar and iterative procedures remain separate unvalidated workflows.
+No microphone, optical hardware or external dataset is accessed by these checks.

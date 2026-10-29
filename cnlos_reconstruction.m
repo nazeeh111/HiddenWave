@@ -1,4 +1,4 @@
-function result = cnlos_reconstruction(meas, tofgrid, wall_size, alg, crop, bin_resolution)
+function [result, info] = cnlos_reconstruction(meas, tofgrid, wall_size, alg, crop, bin_resolution, show_plot)
 % Reconstruction procedures for "Confocal Non-Line-of-Sight Imaging Based on the Light Cone Transform"
 % by Matthew O'Toole, David B. Lindell, and Gordon Wetzstein.
 % and for "Wave-Based Non-Line-of-Sight Imaging using Fast f-k Migration"
@@ -18,17 +18,49 @@ function result = cnlos_reconstruction(meas, tofgrid, wall_size, alg, crop, bin_
 %     alg == 3 : phasor fields
 %     crop: optional argument, bin index to crop measurements after correcting
 %         for time-of-flight delays
+%     bin_resolution: seconds per temporal bin (default 32e-12)
+%     show_plot: optional logical, default true; false avoids all graphics
+%     [result, info]: data are [y,x,depth]; info contains nominal metre axes
+
+    % Admission checks precede alignment, FFT allocation and graphics. Existing
+    % numerical formulas and the eleven-bin boundary mask are retained.
+    validateattributes(meas, {'single','double'}, {'real','finite','nonempty'}, mfilename, 'meas');
+    if ndims(meas) ~= 3 || size(meas,1) ~= size(meas,2) || size(meas,1) < 2
+        error('HiddenWave:InputShape','meas must be a square N-by-N-by-T volume with N >= 2');
+    end
+    validateattributes(wall_size, {'numeric'}, {'scalar','real','finite','positive'}, mfilename, 'wall_size');
+    validateattributes(alg, {'numeric'}, {'scalar','real','finite','integer','>=',0,'<=',3}, mfilename, 'alg');
+    if alg == 2 && any(meas(:) < 0)
+        error('HiddenWave:NegativeIntensity','f-k migration takes sqrt(intensity); supply nonnegative intensity samples');
+    end
+    if ~isempty(tofgrid)
+        validateattributes(tofgrid, {'numeric'}, {'real','finite','size',[size(meas,1),size(meas,2)]}, mfilename, 'tofgrid');
+    end
+    if ~exist('show_plot','var'), show_plot = true; end
+    validateattributes(show_plot, {'logical','numeric'}, {'scalar','real','finite'}, mfilename, 'show_plot');
+    if ~ismember(show_plot,[0,1])
+        error('HiddenWave:PlotOption','show_plot must be true or false');
+    end
 
     % Constants
     c = 3e8;    % Speed of light (meters per second)
     width = wall_size / 2;
-    if ~exist('crop', 'var') % bin index to crop measurements after aligning
-        crop = 512;          % so that direct component is at t=0
+    if ~exist('crop', 'var') || isempty(crop) % bin index to crop measurements after aligning
+        crop = min(512,size(meas,3)); % preserve 512-bin default when available
     end
-    if ~exist('bin_resolution', 'var')
+    if ~exist('bin_resolution', 'var') || isempty(bin_resolution)
        bin_resolution = 32e-12; % temporal bin resolution of measurements 
     end
     
+    validateattributes(bin_resolution, {'numeric'}, {'scalar','real','finite','positive'}, mfilename, 'bin_resolution');
+    validateattributes(crop, {'numeric'}, {'scalar','real','finite','integer','>=',12,'<=',size(meas,3)}, mfilename, 'crop');
+    if alg ~= 2 && 2^nextpow2(crop) ~= crop
+        error('HiddenWave:ResamplingSize','FBP, LCT and phasor modes require a power-of-two crop; select 16, 32, 64, ... within the recording');
+    end
+    if alg == 3 && (exist('waveconv','file') ~= 2 || exist('gausswin','file') ~= 2)
+        error('HiddenWave:PhasorDependency','Phasor mode needs util/waveconv.m on the path and gausswin from Signal Processing Toolbox');
+    end
+
     % Parameters
     isdiffuse  = 1; % Toggle diffuse reflection (LCT only)
     isbackproj = 0; % Toggle backprojection vs LCT (LCT/phasor fields only)
@@ -184,6 +216,13 @@ function result = cnlos_reconstruction(meas, tofgrid, wall_size, alg, crop, bin_
     result = permute(vol, [2, 3, 1]);
     vol = flip(vol, 2);
     vol = flip(vol, 3);
+
+    % Returned data are [y,x,depth], before the display-only spatial flips.
+    info = struct('axes',{{'y','x','depth'}}, 'x_m',linspace(-width,width,N), ...
+        'y_m',linspace(-width,width,N), 'z_m',tic_z, 'wall_size_m',wall_size, ...
+        'bin_resolution_s',bin_resolution, 'crop_bins',M, 'boundary_bins',11, ...
+        'algorithm',alg, 'compute_seconds',time_elapsed);
+    if ~show_plot, return; end
 
     % View result
     figure

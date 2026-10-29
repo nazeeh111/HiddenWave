@@ -1,0 +1,12 @@
+{
+  "base_commit": "61581f34f5a9de11ba84f87ba0651bf2fc70380d",
+  "historical_manifest": "SOURCE-MANIFEST.json",
+  "amendments": [
+    {
+      "path": "cnlos_reconstruction.m",
+      "base_sha256": "4410132f82b69b4bb048b833e5bb074bbd40ca7d97604e2e7256f78704e8652a",
+      "amended_sha256": "b58118917d116f00f0cf5200d4e189e45ce372e0c929bf3a81c92a3c48ce9c27",
+      "reason": "early admission, inferred available crop, optional headless return and nominal coordinate metadata; reconstruction formulas/boundary mask retained"
+    }
+  ]
+}
